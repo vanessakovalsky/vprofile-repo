@@ -29,11 +29,29 @@ pipeline {
             }
 
         }
-         stage('Code Ananlysis'){
+         stage('Code Analysis'){
             steps {
                 sh 'mvn checkstyle:checkstyle'
             }
 
         }
+        stage("UploadArtifact"){
+            steps{
+                nexusArtifactUploader(
+                  nexusVersion: 'nexus3',
+                  protocol: 'http',
+                  nexusUrl: 'http://adt-nexus.easyvista-training.com:8081',
+                  groupId: 'vanessa-group-maven',
+                  version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
+                  repository: 'vprofile-repo',
+                  credentialsId: 'nexus-login',
+                  artifacts: [
+                    [artifactId: 'vproapp',
+                     classifier: '',
+                     file: 'target/vprofile-v2.war',
+                     type: 'war']
+    ]
+ )
+       
     }
 }
