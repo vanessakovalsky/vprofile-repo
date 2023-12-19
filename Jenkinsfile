@@ -43,7 +43,7 @@ pipeline {
                   nexusUrl: 'adt-nexus.easyvista-training.com:8081',
                   groupId: 'vanessa-group-maven',
                   version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-                  repository: 'vprofile-repo',
+                  repository: 'vanessa-maven-hosted',
                   credentialsId: 'nexus-login',
                   artifacts: [
                     [artifactId: 'vproapp',
