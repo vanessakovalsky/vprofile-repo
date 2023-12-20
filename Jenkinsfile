@@ -39,7 +39,8 @@ pipeline {
             }
             post {
                     always {
-                        scanForIssues tool: checkStyle(pattern: '**/target/checkstyle-result.xml')
+                        publishIssues issues: [checkstyle]
+                        //scanForIssues tool: checkStyle(pattern: '**/target/checkstyle-result.xml')
                         //recordIssues enabledForFailure: true, aggregatingResults: true, tools: checkStyle()
                     }
         }
