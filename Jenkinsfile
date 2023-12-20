@@ -27,7 +27,15 @@ pipeline {
             steps {
                 sh 'mvn test'
             }
-
+ post {
+        always{
+            xunit (
+                thresholds: [ skipped(failureThreshold: '0'), failed(failureThreshold: '0') ],
+                tools: [ BoostTest(pattern: 'boost/*.xml') ]
+            )
+        }
+    }
+ }
         }
          stage('Code Analysis'){
             steps {
